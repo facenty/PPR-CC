@@ -1,0 +1,29 @@
+<?xml version ='1.0' encoding ='UTF-8' ?>
+
+<definitions name='myWsdl' 
+	targetNamespace='http://localhost/myWsdl.wsdl' 
+	xmlns:tns='http://localhost/myWsdl.wsdl' 
+	xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' 
+	xmlns='http://schemas.xmlsoap.org/wsdl/'> 
+
+	<message name='printTextRequest'> 
+		<part name='Data' type='xsd:string'/> 
+	</message> 
+
+	<portType name='ExamplePortType'> 
+	  <operation name='printText'>
+		<input message='tns:printTextRequest'/> 
+	  </operation>    
+	</portType> 
+
+	<binding name='ExampleBinding' type='tns:ExamplePortType'> 
+	  <soap:binding style='rpc' transport='http://schemas.xmlsoap.org/soap/http'/> 
+	  <operation name='printText'> 
+		<soap:operation soapAction='printText'/> 
+		<input> 
+		  <soap:body use='encoded' namespace='urn:localhost-myWsdl' 
+			encodingStyle='http://schemas.xmlsoap.org/soap/encoding/'/> 
+		</input> 
+	  </operation>
+	</binding> 
+</definitions>
