@@ -1,4 +1,4 @@
 #!/bin/bash
 
 javac -d . *.java
-java myapp.App
+java third.Third

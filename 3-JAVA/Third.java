@@ -1,4 +1,4 @@
-package myapp;
+package third;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -14,17 +14,16 @@ import javax.xml.ws.Endpoint;
 
 @WebService
 @SOAPBinding(style = SOAPBinding.Style.RPC)
-public class App {
+public class Third {
 
     // Adres do publikacji pliku wsdl
     public static final int port = 12345;
     public static final String url = "http://localhost:" + port + "/";
 
-    public App() {}
-    
-    // Wysyłanie danych na socket
+    public Third() {}
+
     @WebMethod(operationName = "printMessage")
-    public void sendOver(String msg) {
+    public void printMessage(String msg) {
         System.out.print(msg);
     }
 
@@ -33,7 +32,7 @@ public class App {
         System.out.println("    Aplikacja #3");
         System.out.println("====================");
         
-        App app = new App();
-        Endpoint.publish(app.url, app);
+        Third third = new Third();
+        Endpoint.publish(third.url, third);
     }
 }
