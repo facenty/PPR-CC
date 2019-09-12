@@ -15,10 +15,10 @@ int main( int argc, char* argv[] )
 		exit(1);
 	}
 
-	// int port = atoi(argv[2]);
-	// char* host = argv[1];
-	int port = 12121;
-	char* host = "127.0.0.1";
+	int port = atoi(argv[2]);
+	char* host = argv[1];
+	// int port = 12121;
+	// char* host = "127.0.0.1";
 	int outputSocketDescriptor = 0;
 	struct sockaddr_in serverAddress;
 	struct hostent *server;
@@ -36,7 +36,6 @@ int main( int argc, char* argv[] )
 		exit(1);
 	}
 
-	printf("port: %d", htons(port));
 	bzero((char *) &serverAddress, sizeof(serverAddress));
 	serverAddress.sin_family = AF_INET;
 	serverAddress.sin_port = htons(port);
@@ -51,7 +50,7 @@ int main( int argc, char* argv[] )
 	while (1)
 	{
 		someChar = getchar();
-		write( outputSocketDescriptor, &someChar, sizeof( char ) );
+		write( outputSocketDescriptor, &someChar, sizeof( int ) );
 	}
 
 	close(outputSocketDescriptor);

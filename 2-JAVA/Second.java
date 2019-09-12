@@ -57,10 +57,10 @@ public class Second {
                     int input = inputStream.read();
                     String hexString = hexFromChar(input);
                     third.printMessage(hexString);
+                    // System.out.print(""+(char)input);
                 }
             } catch(Exception e)
             {
-                // System.out.println(e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -73,7 +73,7 @@ public class Second {
 
     private String hexFromChar(int someChar)
     {
-        return String.format("%04x", someChar);
+        return String.format("%02x", someChar);
     }
 
 }
