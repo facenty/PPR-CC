@@ -9,11 +9,11 @@
 
 int main( int argc, char* argv[] )
 {
-	// if (argc != 3)
-	// {
-	// 	printf("Wrong arg count");
-	// 	exit(1);
-	// }
+	if (argc != 3)
+	{
+		printf("Wrong args count");
+		exit(1);
+	}
 
 	// int port = atoi(argv[2]);
 	// char* host = argv[1];
@@ -24,7 +24,7 @@ int main( int argc, char* argv[] )
 	struct hostent *server;
 	char someChar = 0;
 
-	if (outputSocketDescriptor = socket(AF_INET, SOCK_STREAM, 0) < 0)
+	if ((outputSocketDescriptor = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 	{
 		printf("Failed to create socket");
 		exit(1);
@@ -36,6 +36,7 @@ int main( int argc, char* argv[] )
 		exit(1);
 	}
 
+	printf("port: %d", htons(port));
 	bzero((char *) &serverAddress, sizeof(serverAddress));
 	serverAddress.sin_family = AF_INET;
 	serverAddress.sin_port = htons(port);
