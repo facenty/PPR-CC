@@ -6,9 +6,28 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h> 
+#include <signal.h>
+
+int isRunnging = 1;
+int isPaused = 0;
+
+void sigHandler(int sigNum)
+{
+	if(sigNum == SIGINT)
+		isRunnging = 0;
+	else
+		if(sigNum == SIGTSTP)
+			isPaused == !isPaused;
+		else
+			printf("Something weird happened");
+}
 
 int main( int argc, char* argv[] )
 {
+	if (signal(SIGINT, sigHandler) == SIG_ERR)
+  		printf("\ncan't catch SIGINT\n");
+	if (signal(SIGTSTP, sigHandler) == SIG_ERR)
+  		printf("\ncan't catch SIGINT\n");
 	if (argc != 3)
 	{
 		printf("Wrong args count");
@@ -47,12 +66,13 @@ int main( int argc, char* argv[] )
 		exit(1);
 	}
 
-	while (1)
+	while (isRunnging)
 	{
 		someChar = getchar();
-		write( outputSocketDescriptor, &someChar, sizeof( int ) );
+		write( outputSocketDescriptor, &someChar, sizeof( char ) );
 	}
 
+	printf("\nexiting\n");
 	close(outputSocketDescriptor);
 	return 0;
 }

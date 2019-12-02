@@ -52,13 +52,14 @@ public class Second {
             {
                 Socket connection = serverSocket.accept();
                 InputStream inputStream = connection.getInputStream();
-                while(connection.isConnected())
+                int count = 0;
+                byte[] buffer = new byte[4096];
+                System.out.println("Connected: "+ connection.isConnected());
+                while(connection.isConnected() && (count = inputStream.read(buffer)) > 0)
                 {
-                    int input = inputStream.read();
-                    String hexString = hexFromChar(input);
-                    third.printMessage(hexString);
-                    // System.out.print(""+(char)input);
+                    third.printMessage(convertToHexString(buffer, count));
                 }
+                System.out.println("Disconnected: "+ connection.isConnected());
             } catch(Exception e)
             {
                 e.printStackTrace();
@@ -71,9 +72,21 @@ public class Second {
         second.run();
     }
 
-    private String hexFromChar(int someChar)
+    private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
+    
+    private String convertToHexString(byte[] txt, int length)
     {
-        return String.format("%02x", someChar);
+        StringBuilder sb = new StringBuilder();
+        char[] hexChars = new char[2];
+        for(int i = 0; i < length; ++i)
+        {
+            int v = txt[i] & 0xFF;
+            hexChars[0] = HEX_ARRAY[v >>> 4];
+            hexChars[1] = HEX_ARRAY[v & 0x0F];
+            String myString = new String(hexChars);
+            sb.append(myString);
+        }
+        return sb.toString();
     }
 
 }

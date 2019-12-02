@@ -6,7 +6,7 @@ OUT_PORT=12121
 gcc first.c -o first
 
 #from file
-# ./first ${OUT_HOST} ${OUT_PORT} < #filePATH
+# ./first ${OUT_HOST} ${OUT_PORT} < ./duzoznakow.txt
 
 #from urandom
 # ./first ${OUT_HOST} ${OUT_PORT} < /dev/urandom
